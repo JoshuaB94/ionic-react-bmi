@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'bmi-calculator-app',
+  appId: 'com.ixoyedesignstudio.bmi-calculator-app',
+  appName: 'BMI Calculator',
   webDir: 'build',
   bundledWebRuntime: false
 };
