@@ -5,6 +5,7 @@ IonItem, IonLabel, IonGrid, IonRow, IonCol, IonInput, IonAlert
 
 import BmiControls from './components/BmiControls';
 import BmiResults from './components/BmiResults';
+import InputControl from './components/InputControl';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,6 +25,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
 
 setupIonicReact();
 
@@ -78,6 +80,12 @@ const App: React.FC = () => {
 
         <IonContent className="ion-padding">
           <IonGrid>
+            <IonRow>
+              <IonCol>
+                <InputControl selectedValue="imperial"/>
+              </IonCol>
+            </IonRow>
+
             <IonRow>
               <IonCol>
                 <IonItem>
