@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { setupIonicReact, IonApp, IonHeader, IonContent, IonToolbar, IonTitle, 
-IonItem, IonLabel, IonGrid, IonRow, IonCol, IonInput, IonButton,
-IonIcon, 
-IonCard} from '@ionic/react';
-import { calculator, refresh } from 'ionicons/icons';
+IonItem, IonLabel, IonGrid, IonRow, IonCol, IonInput
+} from '@ionic/react';
+
+import BmiControls from './components/BmiControls';
+import BmiResults from './components/BmiResults';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -54,7 +55,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonTitle>BMI Calculator</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -65,7 +66,7 @@ const App: React.FC = () => {
             <IonCol>
               <IonItem>
                 <IonLabel position='floating'>Your Height</IonLabel>
-                <IonInput ref={heightInputRef}></IonInput>
+                <IonInput type="number" ref={heightInputRef}></IonInput>
               </IonItem>
             </IonCol>
           </IonRow>
@@ -74,35 +75,15 @@ const App: React.FC = () => {
             <IonCol>
               <IonItem>
                 <IonLabel position='floating'>Your Weight</IonLabel>
-                <IonInput ref={weightInputRef}></IonInput>
+                <IonInput type="number" ref={weightInputRef}></IonInput>
               </IonItem>
             </IonCol>
           </IonRow>
 
-          <IonRow>
-            <IonCol className="ion-text-left">
-              <IonButton onClick={calculateBMI}>
-                <IonIcon slot="start" icon={calculator}/>
-                Calculate
-              </IonButton>
-            </IonCol>
-
-            <IonCol className="ion-text-right">
-              <IonButton onClick={resetInputs}>
-                <IonIcon slot="start" icon={refresh}/>
-                Reset
-              </IonButton>
-            </IonCol>
-          </IonRow>
+          <BmiControls onCalculate={calculateBMI} onReset={resetInputs}/>
             
           {calculatedBMI && (
-          <IonRow>
-            <IonCol>
-              <IonCard>
-                <h2>{calculatedBMI}</h2>
-              </IonCard>
-            </IonCol>
-          </IonRow>
+            <BmiResults result={calculatedBMI}/>
           )}
         </IonGrid>
       </IonContent>
