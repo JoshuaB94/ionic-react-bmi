@@ -31,6 +31,7 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const [ error, setError ] = useState<string>();
+  const [ calcUnits, setCalcUnits ] = useState<'metric' | 'imperial'>('imperial');
   const [ calculatedBMI, setCalculatedBMI ] = useState<number>();
 
   const weightInputRef = useRef<HTMLIonInputElement>(null);
@@ -47,7 +48,13 @@ const App: React.FC = () => {
       return;
     }
 
-    const bmi = +enteredWeight / (+enteredHeight * +enteredHeight);
+    const weightConversionFactor = calcUnits === 'imperial' ? 2.2 : 1;
+    const heightConversionFactor = calcUnits === 'imperial' ? 3.28 : 1;
+
+    const weight = +enteredWeight / weightConversionFactor;
+    const height = +enteredHeight / heightConversionFactor;
+
+    const bmi = weight / (height * height);
 
     setCalculatedBMI(bmi);
   };
@@ -60,6 +67,10 @@ const App: React.FC = () => {
   const clearError = () => {
     setError('');
   }
+
+  const selectCalcUnitHandler = (selectedValue: 'metric' | 'imperial') => {
+    setCalcUnits(selectedValue);
+  };
 
   return (
     <React.Fragment>
@@ -82,14 +93,14 @@ const App: React.FC = () => {
           <IonGrid>
             <IonRow>
               <IonCol>
-                <InputControl selectedValue="imperial"/>
+                <InputControl selectedValue={calcUnits} onSelectValue={selectCalcUnitHandler}/>
               </IonCol>
             </IonRow>
 
             <IonRow>
               <IonCol>
                 <IonItem>
-                  <IonLabel position='floating'>Your Height</IonLabel>
+                  <IonLabel position='floating'>Your Height ({calcUnits === 'metric' ? 'm' : 'ft'})</IonLabel>
                   <IonInput type="number" ref={heightInputRef}></IonInput>
                 </IonItem>
               </IonCol>
@@ -98,7 +109,7 @@ const App: React.FC = () => {
             <IonRow>
               <IonCol>
                 <IonItem>
-                  <IonLabel position='floating'>Your Weight</IonLabel>
+                  <IonLabel position='floating'>Your Weight ({calcUnits === 'metric' ? 'kg' : 'lbs' })</IonLabel>
                   <IonInput type="number" ref={weightInputRef}></IonInput>
                 </IonItem>
               </IonCol>
