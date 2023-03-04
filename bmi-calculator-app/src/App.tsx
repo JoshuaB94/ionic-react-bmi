@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import { IonApp, IonHeader, IonContent, IonToolbar, IonTitle, 
+import { setupIonicReact, IonApp, IonHeader, IonContent, IonToolbar, IonTitle, 
 IonItem, IonLabel, IonGrid, IonRow, IonCol, IonInput, IonButton,
 IonIcon } from '@ionic/react';
 import { calculator, refresh } from 'ionicons/icons';
@@ -22,6 +22,8 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+setupIonicReact();
 
 const App: React.FC = () => {
   const weightInputRef = useRef<HTMLIonInputElement>(null);
